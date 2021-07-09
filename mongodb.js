@@ -11,6 +11,10 @@ const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 
 const id = new ObjectID()                               //id declared
+
+
+//ID OPERATIONS
+
 // console.log(id);
 // console.log(id.getTimestamp());                      //time stamp id
 // console.log(id.id);                                  //id property of id
@@ -25,52 +29,106 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
 
     const db = client.db(databaseName)
 
-    //INSERT OPERATIONS
 
-    //    db.collection('users').insertOne({
-    //        _id:id,      //id declare for user
-    //        name:'Himanshu',
-    //        age:22
-    //    },(error,result)=>{
-    //         if(error){
-    //             return console.log('unable to insert user');
-    //         }
-    //         console.log(result.ops);
-    //    })
+    //INSERT OPERATIONS ----  CREATE
 
-    // db.collection('users').insertMany([
-    //     {
-    //         name:'A',
-    //         age:29
-    //     },
-    //     {
-    //         name:'B',
-    //         age:20
-    //     }
-    // ],(error,result)=>{
-    //     if(error){
-    //         return console.log('Unable to insert');
-    //     }
-    //     console.log(result.ops);
-    // })})
 
-    // db.collection('tasks').insertMany([
-    //     {
-    //         description:'Do the house chores',
-    //         completed:true
-    //     },
-    //     {
-    //         description:'Do the homework',
-    //         completed:false
-    //     },
-    //     {
-    //         description:'Practice DSA problems',
-    //         completed:true
-    //     }
-    // ],(error,result)=>{
-    //     if(error){
-    //         return console.log('unable to add tasks');
-    //     }
-    //     console.log(result.ops);
-    // })
+    //insertOne operation
+    db.collection('users').insertOne({
+        _id: id,      //id declare for user
+        name: 'Himanshu',
+        age: 22
+    }, (error, result) => {
+        if (error) {
+            return console.log('unable to insert user');
+        }
+        console.log(result.ops);
+    })
+
+    //insertMany operation in users
+    db.collection('users').insertMany([
+        {
+            name: 'A',
+            age: 29
+        },
+        {
+            name: 'B',
+            age: 20
+        }
+    ], (error, result) => {
+        if (error) {
+            return console.log('Unable to insert');
+        }
+        console.log(result.ops);
+    })
+
+    //insertMany operation in tasks
+
+    db.collection('tasks').insertMany([
+        {
+            description: 'Do the house chores',
+            completed: true
+        },
+        {
+            description: 'Do the homework',
+            completed: false
+        },
+        {
+            description: 'Practice DSA problems',
+            completed: true
+        }
+    ], (error, result) => {
+        if (error) {
+            return console.log('unable to add tasks');
+        }
+        console.log(result.ops);
+    })
+
+
+
+    // FIND operations ---- READ
+
+    db.collection('users').findOne({ name: 'Himanshu', age: 1 }, (error, user) => {
+        if (error) {
+            return console.log('unable to fetch');
+        }
+        console.log(user);
+    })
+
+    //  find method doesn't have  any callback function it has toArray method for getting the data
+
+    db.collection('users').find({ age: 20 }).toArray((error, users) => {
+        if (error) {
+            return console.log('unable to fetch');
+        }
+        console.log(users);
+    })
+
+    // count method to count the total no. of enteries
+
+    db.collection('users').find({ age: 20 }).count((error, count) => {
+        if (error) {
+            return console.log('unable to fetch');
+        }
+        console.log(count);
+    })
+
+    // find operation for task app
+
+    db.collection('tasks').findOne({ _id=new ObjectID("60e7ccd6d3e6ec3d8454789e") }, (error, task) => {
+        if (error) {
+            return console.log('unable to fetch');
+        }
+        console.log(task);
+    })
+
+    //find all task that are not completed
+    db.collection('tasks').find({ completed: false }).toArray((error, task) => {
+        if (error) {
+            return console.log('unable to find');
+        }
+        console.log(task);
+    })
+
+
 })
