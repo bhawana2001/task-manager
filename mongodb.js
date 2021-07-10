@@ -135,52 +135,72 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
 
     //update one operation
 
-    const updatePromise=db.collection('users').updateOne({
-        _id:new ObjectID("60e5b63aecfda347641596f9")
-    },{
-        $set:{
-            name:'New name'
-        }
-    })
+    // const updatePromise=db.collection('users').updateOne({
+    //     _id:new ObjectID("60e5b63aecfda347641596f9")
+    // },{
+    //     $set:{
+    //         name:'New name'
+    //     }
+    // })
 
-    updatePromise.then((result)=>{
-        console.log(result);
-    }).catch((error)=>{
+    // updatePromise.then((result)=>{
+    //     console.log(result);
+    // }).catch((error)=>{
+    //     console.log(error);
+    // })
+
+    // //we can also chain above promise like this
+
+    // db.collection('users').updateOne({
+    //     _id:new ObjectID("60e5b63aecfda347641596f9")
+    // },{
+    //     //set operation to set a net value
+    //     $set:{
+    //         name:'Mike'
+    //     }
+    //     // increment operation to increase any int value or decrease by assign -sign
+    //     //     $inc:{
+    //     //     age:5
+    //     // }
+    // }).then((result)=>{
+    //     console.log(result);
+    // }).catch((error)=>{
+    //     console.log(error);
+    // })
+
+    // //updateMany operation
+
+    // db.collection('tasks').updateMany({
+    //     completed:false
+    // },{
+    //     $set:{
+    //         completed:true
+    //     }
+    // }).then((result)=>{
+    //     console.log(result.modifiedCount);
+    // }).catch((error)=>{
+    //     console.log(error);
+    // })
+
+    //DELETE OPERATIONS
+
+    //delete many
+    db.collection('users').deleteMany({
+        age: 29
+    }).then((result) => {
+        console.log(result.deletedCount);
+    }).catch((error) => {
         console.log(error);
     })
 
-    //we can also chain above promise like this
+    //delete one
 
-    db.collection('users').updateOne({
-        _id:new ObjectID("60e5b63aecfda347641596f9")
-    },{
-        //set operation to set a net value
-        $set:{
-            name:'Mike'
-        }
-        // increment operation to increase any int value or decrease by assign -sign
-        //     $inc:{
-        //     age:5
-        // }
-    }).then((result)=>{
-        console.log(result);
-    }).catch((error)=>{
+    db.collection('tasks').deleteOne({
+        description: 'Do the homework'
+    }).then((result) => {
+        console.log(result.deletedCount);
+    }).catch((error) => {
         console.log(error);
     })
-
-    //updateMany operation
-
-    db.collection('tasks').updateMany({
-        completed:false
-    },{
-        $set:{
-            completed:true
-        }
-    }).then((result)=>{
-        console.log(result.modifiedCount);
-    }).catch((error)=>{
-        console.log(error);
-    })
-
 
 })
