@@ -130,7 +130,6 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     //     console.log(task);
     // })
 
-
     //UPDATE OPERATIONS 
 
     //update one operation
@@ -185,22 +184,22 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     //DELETE OPERATIONS
 
     //delete many
-    db.collection('users').deleteMany({
-        age: 29
-    }).then((result) => {
-        console.log(result.deletedCount);
-    }).catch((error) => {
-        console.log(error);
-    })
+    // db.collection('users').deleteMany({
+    //     age: 29
+    // }).then((result) => {
+    //     console.log(result.deletedCount);
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
 
-    //delete one
+    // //delete one
 
-    db.collection('tasks').deleteOne({
-        description: 'Do the homework'
-    }).then((result) => {
-        console.log(result.deletedCount);
-    }).catch((error) => {
-        console.log(error);
-    })
+    // db.collection('tasks').deleteOne({
+    //     description: 'Do the homework'
+    // }).then((result) => {
+    //     console.log(result.deletedCount);
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
 
 })
