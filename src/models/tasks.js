@@ -18,4 +18,4 @@ const Tasks = mongoose.model('Tasks', {
 })
 
 //exports tha task
-module.exports=Tasks
+module.exports = Tasks
