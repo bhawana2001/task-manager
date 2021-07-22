@@ -15,7 +15,7 @@ Task.findByIdAndRemove('60f2714385128908fc61ef2c').then((task) => {
 // ASYNC AWAIT FUNCTION EXAMPLE
 
 const deleteAndCount = async (id, completed) => {
-    const task = await Task.findByIdAndRemove(id, { completed })
+    const task = await Task.findByIdAndRemove(id)
     const count = await Task.countDocuments({ completed })
     return count
 }

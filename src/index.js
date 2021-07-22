@@ -10,72 +10,131 @@ app.use(express.json())
 
 //USER CREATION END POINT
 
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
     const user = new User(req.body);
-    user.save().then(() => {
+    //uses await method to send a promise
+    try {
+        await user.save()
         res.status(201).send(user)
-    }).catch((e) => {
+    } catch (e) {
         res.status(400).send(e)
-    })
+    }
+
+    // user.save().then(() => {
+    //     res.status(201).send(user)
+    // }).catch((e) => {
+    //     res.status(400).send(e)
+    // })
 })
 
 //READ CREATION ENDPOINT FOR USERS
 //find all users data
-app.get('/users',(req,res)=>{
-    User.find({}).then((users)=>{
+app.get('/users', async (req, res) => {
+
+    //uses await method to send a promise
+    try {
+        const users = await User.find({})
         res.send(users)
-    }).catch((e)=>{
+
+    } catch (e) {
         res.status(500).send()
-    })
+    }
+
+    // User.find({}).then((users) => {
+    //     res.send(users)
+    // }).catch((e) => {
+    //     res.status(500).send()
+    // })
 })
 
 //find specific user
-app.get('/users/:id',(req,res)=>{
-    const _id=req.params.id
-    User.findById(_id).then((user)=>{
-        if(!user){
+app.get('/users/:id', async (req, res) => {
+    const _id = req.params.id
+
+    //uses await method to send a promise
+    try {
+        const user = await User.findById(_id)
+        if (!user) {
             return res.status(404).send()
         }
-
         res.send(user)
-    }).catch((e)=>{
-        res.status(500).send()
-    })
+    } catch (e) {
+        res.status(400).send()
+    }
+
+    // User.findById(_id).then((user) => {
+    //     if (!user) {
+    //         return res.status(404).send()
+    //     }
+
+    //     res.send(user)
+    // }).catch((e) => {
+    //     res.status(500).send()
+    // })
 })
 
 //TASK CREATION END POINT
 
-app.post('/tasks', (req, res) => {
+app.post('/tasks', async (req, res) => {
     const task = new Task(req.body)
-    task.save().then(() => {
-        res.status(201).send(task)
-    }).catch((e) => {
-        res.status(400).send(e)
-    })
+
+    try{
+        await task.save()
+        res.status(200).send(task)
+    }catch(e){
+        res.status(400).send()
+    }
+
+    // task.save().then(() => {
+    //     res.status(201).send(task)
+    // }).catch((e) => {
+    //     res.status(400).send(e)
+    // })
 })
 
 //READ CREATION ENDPOINT FOT TASKS
 //read all the task
-app.get('/tasks',(req,res)=>{
-    Task.find({}).then((tasks)=>{
-        res.status(200).send(tasks)
-    }).catch((e)=>{
-        res.status(500).send()
-    })
+app.get('/tasks', async (req, res) => {
+
+    try{
+        const tasks=await Task.find({})
+        res.send(tasks)
+    }catch(e){
+        res.status(400).send()
+    }
+
+    // Task.find({}).then((tasks) => {
+    //     res.status(200).send(tasks)
+    // }).catch((e) => {
+    //     res.status(500).send()
+    // })
 })
 
 //read single task
-app.get('/tasks/:id',(req,res)=>{
-    const _id=req.params.id
-    Task.findById(_id).then((task)=>{
-        if(!task){
-            return res.status(404).send()
-        }
+app.get('/tasks/:id', async (req, res) => {
+    const _id = req.params.id
+
+    try{
+        const task=await Task.findById(_id)
         res.send(task)
-    }).catch((e)=>{
-        res.status(500).send()
-    })
+
+    }catch(e){
+        res.status(404).send()
+    }
+
+    // Task.findById(_id).then((task) => {
+    //     if (!task) {
+    //         return res.status(404).send()
+    //     }
+    //     res.send(task)
+    // }).catch((e) => {
+    //     res.status(500).send()
+    // })
 })
+
+
+//UPDATE CREATION ENDPOINT
+
 
 
 app.listen(port, () => {
