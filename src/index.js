@@ -16,7 +16,7 @@ app.listen(port, () => {
     console.log(`server is running on ${port}`);
 })
 
-//bcrypt used
+//bcrypt used for password encryption 
 
 const bcrypt=require('bcryptjs')
 
