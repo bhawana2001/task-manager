@@ -15,3 +15,24 @@ app.use(taskRouter)
 app.listen(port, () => {
     console.log(`server is running on ${port}`);
 })
+
+//bcrypt used
+
+const bcrypt=require('bcryptjs')
+
+const myFunction=async()=>{
+
+    const password='Bhawana2001'
+    //bcrypt the password using below method
+    const hashedPassword=await bcrypt.hash(password,8)
+
+    console.log(password);
+    console.log(hashedPassword)
+
+    // compare method to find if password enterd by user is right or not
+    const isMatch= await bcrypt.compare('bhawana2001',hashedPassword)
+    console.log(isMatch);
+}
+
+myFunction()
+
